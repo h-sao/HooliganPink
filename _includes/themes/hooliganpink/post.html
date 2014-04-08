@@ -1,4 +1,4 @@
-<div class="page-header">
+<div class="page-header thin-header">
   <h1>
     {{ page.title }} 
     {% if page.tagline %}
@@ -8,7 +8,32 @@
 </div>
 
 <div class="row">
-  <div class="span8">
+  <div class="span12 second-header">
+    <section class="span3">
+      <h4>Published</h4>
+      <div class="date"><span>{{ page.date | date_to_long_string }}</span></div>
+    </section>
+    {% if page.category %}
+      <section class="span3">
+        <h4>Category</h4>
+        <span class="category">
+          {{ page.category }}
+        </span>
+      </section>
+    {% endif %}     
+    {% unless page.tags == empty %}
+      <section class="span3">
+        <h4>Tags</h4>
+        <ul class="tag_box tag_box_post">
+          {% assign tags_list = page.tags %}
+          {% include JB/tags_list %}
+        </ul>
+      </section>
+    {% endunless %}         
+  </div>
+</div>
+<div class="row">
+  <div class="span12">
     {{ content }}
     <hr>
     <div class="pagination btn-group">
@@ -28,27 +53,4 @@
     {% include JB/comments %}
   </div>
   
-  <div class="span4">
-    <section>
-      <h4>Published</h4>
-      <div class="date"><span>{{ page.date | date_to_long_string }}</span></div>
-    </section>
-    {% if page.category %}
-      <section>
-        <h4>Category</h4>
-        <span class="category">
-          {{ page.category }}
-        </span>
-      </section>
-    {% endif %}     
-    {% unless page.tags == empty %}
-      <section>
-        <h4>Tags</h4>
-        <ul class="tag_box">
-          {% assign tags_list = page.tags %}
-          {% include JB/tags_list %}
-        </ul>
-      </section>
-    {% endunless %}         
-  </div>
 </div>
